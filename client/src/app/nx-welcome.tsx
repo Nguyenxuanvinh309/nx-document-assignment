@@ -1,3 +1,6 @@
+import {
+  useQuery
+} from '@tanstack/react-query';
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -6,6 +9,31 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 export function NxWelcome({ title }: { title: string }) {
+  const getData = async() => {
+    const url = "http://localhost:4000/api/folders";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+  
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      const res: Partial<{
+        message: string
+      }> = error || {};
+      console.error(res?.message);
+    }
+  }
+
+  const {
+    data
+  } = useQuery({ 
+      queryKey: ['todos'], 
+      queryFn: () => getData()
+  });
+  console.log(data);
   return (
     <>
       <style
