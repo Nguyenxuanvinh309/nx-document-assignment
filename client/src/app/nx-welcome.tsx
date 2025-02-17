@@ -1,8 +1,6 @@
-import {
-  useQuery
-} from '@tanstack/react-query';
-import { useGetData } from '../configs/api';
-import { config } from './config';
+import useFetch from "../hooks/useFetch";
+import useMute from "../hooks/useMute";
+
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -12,11 +10,34 @@ import { config } from './config';
  */
 export function NxWelcome({ title }: { title: string }) {
   const {
-    data, error
-  } = useQuery({ 
-      queryKey: ['folders'], 
-      queryFn: () => useGetData('/folders')
+    data, error, refetch
+  } = useFetch({ 
+    queryKey: ['folders'],
+    url: '/folders'
   });
+  const { request } = useMute<{ name: string }, {}>();
+  const { request: deleteRequest } = useMute();
+  const handleAdd = () => {
+    request({
+      url: "/folders",
+    },  { name: "Math2" }, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
+  const handleDelete = () => {
+    console.log(1);
+    deleteRequest({
+      url: "/folders/4f6ffacc-3135-41cf-809d-f5134644cf78",
+      method: 'DELETE'
+    }, {
+      onSuccess: () => {
+        refetch();
+      },
+    });
+  };
+
   console.log(data, error?.message);
   return (
     <>
@@ -439,7 +460,7 @@ export function NxWelcome({ title }: { title: string }) {
           `,
         }}
       />
-      <div className="wrapper">
+      {/* <div className="wrapper">
         <div className="container">
           <div id="welcome">
             <h1>
@@ -852,6 +873,12 @@ export function NxWelcome({ title }: { title: string }) {
             </svg>
           </p>
         </div>
+      </div> */}
+      <div className="wrapper">
+        <button onClick={() => handleAdd()}>Add Folder</button>
+      </div>
+      <div className="wrapper">
+        <button onClick={() => handleDelete()}>Delete Folder</button>
       </div>
     </>
   );

@@ -28,16 +28,21 @@ const useGetData = async (endpoint: string) => {
   }
 };
 
-const usePostData = async <T,>(endpoint: string, payload: T) => {
+const usePostData = async <TRequest, TResponse>(
+  endpoint: string,
+  payload: TRequest
+): Promise<TResponse> => {
   try {
-    const { data } = await axiosInstance.post(endpoint, payload);
+    const { data } = await axiosInstance.post<TResponse>(endpoint, payload);
     return data;
   } catch (error) {
-    throw new Error((error as Error).message || "Failed to usePostData data");
+    throw new Error((error as Error).message || "Failed to post data");
   }
 };
 
-const useDeleteData = async (endpoint: string) => {
+const useDeleteData = async <TResponse>(
+  endpoint: string,
+): Promise<TResponse> => {
   try {
     const { data } = await axiosInstance.delete(endpoint);
     return data;
@@ -46,9 +51,12 @@ const useDeleteData = async (endpoint: string) => {
   }
 };
 
-const usePatchData = async <T,>(endpoint: string, payload: T) => {
+const usePatchData = async <TRequest, TResponse>(
+  endpoint: string,
+  payload: TRequest
+): Promise<TResponse> => {
   try {
-    const { data } = await axiosInstance.patch(endpoint, payload);
+    const { data } = await axiosInstance.patch<TResponse>(endpoint, payload);
     return data;
   } catch (error) {
     throw new Error((error as Error).message || "Failed to update data");
