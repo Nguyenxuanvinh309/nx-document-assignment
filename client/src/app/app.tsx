@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <NxWelcome title="@nx-document-assignment/client" />
+      <NxWelcome />
       {/* The rest of your application */}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
