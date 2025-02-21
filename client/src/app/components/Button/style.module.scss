@@ -1,0 +1,23 @@
+.button {
+  user-select: none;
+  font-weight: 600;
+  position: relative;
+  line-height: 1;
+  text-align: center;
+  overflow: hidden;
+  width: auto;
+  cursor: pointer;
+  display: inline-block;
+  -webkit-border-radius: var(--button-radius, var(--mantine-radius-default));
+  -moz-border-radius: var(--button-radius, var(--mantine-radius-default));
+  -ms-border-radius: var(--button-radius, var(--mantine-radius-default));
+  -o-border-radius: var(--button-radius, var(--mantine-radius-default));
+  border-radius: var(--button-radius, var(--mantine-radius-default));
+  font-size: var(--button-fz, var(--mantine-font-size-sm));
+  background: var(--button-bg, var(--mantine-primary-color-filled));
+  border: var(--button-bd, calc(.0625rem* var(--mantine-scale)) solid transparent);
+  color: var(--button-color, var(--mantine-color-white));
+  height: var(--button-height, var(--button-height-sm));
+  padding-inline: var(--button-padding-x, var(--button-padding-x-sm));
+  vertical-align: middle;
+}

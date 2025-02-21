@@ -1,8 +1,7 @@
-import { Flex } from "@mantine/core";
+import { Box, Flex } from "@mantine/core";
 import { useFetch, useMute } from "../../../hooks";
-import { FolderItem } from "../../components";
+import { Button, FolderItem, Loading } from "../../components";
 import { IFolder } from "../../models/folders/type";
-import styles from './style.module.scss';
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -18,7 +17,7 @@ const Folders = () => {
     url: '/folders'
   });
   const { request } = useMute<{ name: string }, {}>();
-  const { request: deleteRequest } = useMute();
+  const { request: deleteRequest, isLoading: isDeleting } = useMute();
 
   const handleAdd = () => {
     request({
@@ -45,25 +44,63 @@ const Folders = () => {
   return (
     <Flex
       style={{
-        display: 'flex'
+        display: 'flex',
       }}
       justify="flex-start"
       align="flex-start"
-      direction="row"
+      direction="column"
       wrap="wrap"
+      w="100%"
       gap={16}
     >
-      {
-        isLoading ? <span>Loading...</span> : data?.map((item: IFolder) => {
-          return (
-            <FolderItem key={item?.id} {...item} onDeleteItem={handleDelete} />
-          )
-        })
-      }
-      
-      <div className="wrapper">
-        <button onClick={() => handleAdd()}>Add Folder</button>
-      </div>
+      <Flex 
+        style={{
+          display: 'flex',
+          border: '1px solid gray',
+          padding: 16,
+          borderRadius: 8,
+          height: 'calc(100vh - 32px)',
+          boxShadow: '0 0 11px 0 #00000069'
+        }}
+        direction="column"
+        justify="space-between"
+        gap={16}
+      >
+        <Flex
+          style={{
+            display: 'flex'
+          }}
+          w="100%"
+          justify="flex-start"
+          align="flex-start"
+          direction="column"
+          wrap="wrap"
+          gap={16}
+        >
+          {
+            isLoading || isDeleting ? (
+              <Flex 
+                style={{
+                  display: 'flex'
+                }}
+                justify="center"
+                align="center"
+                w="inherit"
+              >
+                <Loading />
+              </Flex>
+            ) : data?.map((item: IFolder) => {
+              return (
+                <FolderItem key={item?.id} {...item} onDeleteItem={handleDelete} disabled={isLoading || isDeleting} />
+              )
+            })
+          }
+        </Flex>
+
+        <Box>
+          <Button miw={300} size="lg" fw={600} variant="filled" onClick={() => handleAdd()}>ADD FOLDER</Button>
+        </Box>
+      </Flex>
     </Flex>
   );
 }

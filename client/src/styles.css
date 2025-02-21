@@ -33,6 +33,7 @@
 
 :root {
   --mantine-scale: 1.1; /* Increase overall UI scale */
+  --loader-size-lg: 80px; /* Change the default large size */
 }
 
 /* Reapply the pointer cursor for anchor tags */
