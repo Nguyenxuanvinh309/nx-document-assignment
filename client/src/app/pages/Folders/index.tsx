@@ -8,6 +8,7 @@ import schema, { FolderType } from "./schema";
 import { useForm } from "react-hook-form";
 import TextInput from "../../components/Form/TextInput";
 import { toast } from "react-toastify";
+import { addNewFolder, getFolderList, deleteNewFolder } from "../../models/folders";
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -18,10 +19,7 @@ import { toast } from "react-toastify";
 const Folders = () => {
   const {
     data, refetch, isLoading
-  } = useFetch<IFolder[]>({ 
-    queryKey: ['folders'],
-    url: '/folders'
-  });
+  } = useFetch<IFolder[]>(getFolderList);
   const { control, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(schema),
     mode: 'onBlur',
@@ -32,9 +30,7 @@ const Folders = () => {
   const { request: deleteRequest, isLoading: isDeleting } = useMute();
 
   const handleAdd = (data: FolderType) => {
-    addRequest({
-      url: "/folders",
-    },  data, {
+    addRequest(addNewFolder,  data, {
       onSuccess: () => {
         refetch();
         reset();
@@ -43,10 +39,7 @@ const Folders = () => {
     });
   };
   const handleDelete = (id: string) => {
-    deleteRequest({
-      url: `/folders/${id}`,
-      method: 'DELETE',
-    }, null, {
+    deleteRequest(deleteNewFolder(id), null, {
       onSuccess: () => {
         toast.success('Delete Success');
         refetch();

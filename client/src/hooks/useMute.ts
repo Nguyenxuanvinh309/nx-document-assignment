@@ -1,7 +1,6 @@
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { useApi } from "../configs/api";
-
-type HttpMethod = "POST" | "PATCH" | "DELETE";
+import { HttpMethod } from "../configs/types";
 
 type Callbacks<TResponse> = {
   onSuccess?: (data: TResponse) => void;
