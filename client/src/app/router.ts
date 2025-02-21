@@ -1,5 +1,5 @@
-import Documents from './Documents';
+import Folders from './pages/Folders';
 
 export {
-  Documents
+  Folders
 };

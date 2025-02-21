@@ -1,14 +1,14 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
 import {
-  Documents
+  Folders
 } from '../app/router';
 
 // Define routes
 const rootRoute = createRootRoute();
 // Define child routes in an array
 const routes = [
-  createRoute({ getParentRoute: () => rootRoute, path: "/", component: Documents }),
-  createRoute({ getParentRoute: () => rootRoute, path: "/document", component: Documents }),
+  createRoute({ getParentRoute: () => rootRoute, path: "/", component: Folders }),
+  createRoute({ getParentRoute: () => rootRoute, path: "/document", component: Folders }),
   createRoute({ getParentRoute: () => rootRoute, path: "*", component: () => 'Not found' }), // Catch-all route
 ];
 

@@ -1,5 +1,4 @@
 // Uncomment this line to use CSS modules
-// import styles from './app.module.css';
 import {
   QueryClient,
   QueryClientProvider,
@@ -7,13 +6,17 @@ import {
 import { RouterProvider } from "@tanstack/react-router";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { router } from '../routers';
+import { Container } from '@mantine/core';
+import styles from './app.module.scss';
 
 const queryClient = new QueryClient();
 
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <Container fluid className={styles.wrapper}>
+        <RouterProvider router={router} />
+      </Container>
       {/* The rest of your application */}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

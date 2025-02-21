@@ -1,5 +1,8 @@
-import { useFetch, useMute } from "../../hooks";
-import { Title, Text } from '@mantine/core';
+import { Flex } from "@mantine/core";
+import { useFetch, useMute } from "../../../hooks";
+import { FolderItem } from "../../components";
+import { IFolder } from "../../models/folders/type";
+import styles from './style.module.scss';
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -7,14 +10,10 @@ import { Title, Text } from '@mantine/core';
  Delete this file and get started with your project!
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
-const Documents = () => {
+const Folders = () => {
   const {
     data, refetch, isLoading
-  } = useFetch<{
-    id: string,
-    name: string,
-    type: string
-  }[]>({ 
+  } = useFetch<IFolder[]>({ 
     queryKey: ['folders'],
     url: '/folders'
   });
@@ -34,8 +33,9 @@ const Documents = () => {
     deleteRequest({
       url: `/folders/${id}`,
       method: 'DELETE',
-    }, {
+    }, {}, {
       onSuccess: () => {
+        console.log(1);
         refetch();
       },
     });
@@ -43,31 +43,32 @@ const Documents = () => {
 
   console.log(data, isLoading);
   return (
-    <>
-      <Title>Document Management Assignment</Title>
+    <Flex
+      style={{
+        display: 'flex'
+      }}
+      justify="flex-start"
+      align="flex-start"
+      direction="row"
+      wrap="wrap"
+      gap={16}
+    >
       {
-        isLoading ? <span>Loading...</span> : data?.map((item: {
-          id: string,
-          name: string
-        }) => {
+        isLoading ? <span>Loading...</span> : data?.map((item: IFolder) => {
           return (
-            <div key={item?.id}>
-              <Text>{item?.name}-{item?.id}</Text>
-              <div>
-                <button onClick={() => handleDelete(item?.id)}>Delete Folder</button>
-              </div>
-            </div>
+            <FolderItem key={item?.id} {...item} onDeleteItem={handleDelete} />
           )
         })
       }
+      
       <div className="wrapper">
         <button onClick={() => handleAdd()}>Add Folder</button>
       </div>
-    </>
+    </Flex>
   );
 }
 
-export default Documents;
+export default Folders;
 
 
 
