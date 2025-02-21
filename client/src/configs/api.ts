@@ -29,29 +29,29 @@ const handleRequest = async <TResponse>(
 };
 
 // CRUD Operations
-const useGetData = <TResponse>(endpoint: string, config?: AxiosRequestConfig) => 
-  handleRequest<TResponse>(axiosInstance.get(endpoint, config));
+const useGetData = <TResponse>(url: string, config?: AxiosRequestConfig) => 
+  handleRequest<TResponse>(axiosInstance.get(url, config));
 
-const usePostData = <TRequest, TResponse>(endpoint: string, payload: TRequest, config?: AxiosRequestConfig) =>
-  handleRequest<TResponse>(axiosInstance.post(endpoint, payload, config));
+const usePostData = <TRequest, TResponse>(url: string, payload: TRequest, config?: AxiosRequestConfig) =>
+  handleRequest<TResponse>(axiosInstance.post(url, payload, config));
 
-const useDeleteData = <TResponse>(endpoint: string, config?: AxiosRequestConfig) => 
-  handleRequest<TResponse>(axiosInstance.delete(endpoint, config));
+const useDeleteData = <TResponse>(url: string, config?: AxiosRequestConfig) => 
+  handleRequest<TResponse>(axiosInstance.delete(url, config));
 
-const usePatchData = <TRequest, TResponse>(endpoint: string, payload: TRequest, config?: AxiosRequestConfig) =>
-  handleRequest<TResponse>(axiosInstance.patch(endpoint, payload, config));
+const usePatchData = <TRequest, TResponse>(url: string, payload: TRequest, config?: AxiosRequestConfig) =>
+  handleRequest<TResponse>(axiosInstance.patch(url, payload, config));
 
 const useApi = async <TRequest, TResponse>(
-  endpoint: string,
+  url: string,
   method: "GET" | "POST" | "PATCH" | "DELETE",
   payload?: TRequest,
   config?: AxiosRequestConfig
 ): Promise<TResponse> => {
   const requestMap = {
-    GET: () => axiosInstance.get<TResponse>(endpoint, config),
-    POST: () => axiosInstance.post<TResponse>(endpoint, payload, config),
-    PATCH: () => axiosInstance.patch<TResponse>(endpoint, payload, config),
-    DELETE: () => axiosInstance.delete<TResponse>(endpoint, config),
+    GET: () => axiosInstance.get<TResponse>(url, config),
+    POST: () => axiosInstance.post<TResponse>(url, payload, config),
+    PATCH: () => axiosInstance.patch<TResponse>(url, payload, config),
+    DELETE: () => axiosInstance.delete<TResponse>(url, config),
   };
 
   if (!(method in requestMap)) {

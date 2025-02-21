@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { useGetData } from "../configs/api";
+import { useGetData } from "../configs/api"; // ✅ Ensure this is a FUNCTION, not a hook
 
 type Props<T> = {
   url: string;
@@ -8,9 +8,9 @@ type Props<T> = {
 
 const useFetch = <T>({ url, queryKey, ...options }: Props<T>) => {
   return useQuery<T, unknown>({
-    queryKey: [...queryKey], // Avoids nesting issues
-    queryFn: () => useGetData<T>(url), // Ensures correct typing
-    ...options, // Spreads any additional options
+    queryKey: [...queryKey], 
+    queryFn: async () => await useGetData<T>(url), // ✅ Pass `url` to useGetData
+    ...options, 
   });
 };
 

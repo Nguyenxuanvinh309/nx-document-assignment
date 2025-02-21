@@ -1,7 +1,12 @@
 import { Box, Flex } from "@mantine/core";
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useFetch, useMute } from "../../../hooks";
 import { Button, FolderItem, Loading } from "../../components";
 import { IFolder } from "../../models/folders/type";
+import styles from './style.module.scss';
+import schema, { FolderType } from "./schema";
+import { useForm } from "react-hook-form";
+import TextInput from "../../components/Form/TextInput";
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -16,15 +21,22 @@ const Folders = () => {
     queryKey: ['folders'],
     url: '/folders'
   });
-  const { request } = useMute<{ name: string }, {}>();
+  const { control, handleSubmit, formState, reset } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onBlur',
+    defaultValues: { name: '' }
+  });
+  const { isValid } = formState;
+  const { request: addRequest, isLoading: isAdding } = useMute<FolderType, null>();
   const { request: deleteRequest, isLoading: isDeleting } = useMute();
 
-  const handleAdd = () => {
-    request({
+  const handleAdd = (data: FolderType) => {
+    addRequest({
       url: "/folders",
-    },  { name: "Math" }, {
+    },  data, {
       onSuccess: () => {
         refetch();
+        reset();
       },
     });
   };
@@ -32,7 +44,7 @@ const Folders = () => {
     deleteRequest({
       url: `/folders/${id}`,
       method: 'DELETE',
-    }, {}, {
+    }, null, {
       onSuccess: () => {
         console.log(1);
         refetch();
@@ -40,7 +52,7 @@ const Folders = () => {
     });
   };
 
-  console.log(data, isLoading);
+  console.log(isValid);
   return (
     <Flex
       style={{
@@ -54,14 +66,7 @@ const Folders = () => {
       gap={16}
     >
       <Flex 
-        style={{
-          display: 'flex',
-          border: '1px solid gray',
-          padding: 16,
-          borderRadius: 8,
-          height: 'calc(100vh - 32px)',
-          boxShadow: '0 0 11px 0 #00000069'
-        }}
+        className={styles.wrapper}
         direction="column"
         justify="space-between"
         gap={16}
@@ -98,7 +103,25 @@ const Folders = () => {
         </Flex>
 
         <Box>
-          <Button miw={300} size="lg" fw={600} variant="filled" onClick={() => handleAdd()}>ADD FOLDER</Button>
+          <form onSubmit={handleSubmit(handleAdd)} >
+            <TextInput
+              name="name"
+              control={control}
+              placeholder="Folder name"
+              variant="unstyled"
+              mb={10}
+            />
+            <Button
+              miw={300}
+              size="lg"
+              fw={600}
+              variant="filled"
+              type="submit"
+              disabled={!isValid || isAdding}
+            >
+              ADD FOLDER
+            </Button>
+          </form>
         </Box>
       </Flex>
     </Flex>

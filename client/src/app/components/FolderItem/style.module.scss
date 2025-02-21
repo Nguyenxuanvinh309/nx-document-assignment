@@ -1,0 +1,13 @@
+.element {
+  display: flex;
+  border-radius: 8px;
+  border: 1px solid #00398f;
+  cursor: pointer;
+}
+.elementText {
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 260px;;
+}

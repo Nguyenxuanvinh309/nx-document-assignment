@@ -4,8 +4,13 @@ import styles from './style.module.scss';
 const Component = ({
   ...props
 }) => {
-  return <Button className={styles.button} {
-    ...props
-  }>Add Folder</Button>
+  return (
+    <Button 
+      className={styles.button} 
+      {...props}
+    >
+      {props?.children}
+    </Button>
+  )
 };
 export default Component;

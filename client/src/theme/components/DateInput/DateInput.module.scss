@@ -11,7 +11,7 @@
   }
 
   &:focus {
-    border-color: var(--mantine-color-primary-3);
+    border: 1px solid var(--input-primary);
   }
 
   &:disabled {

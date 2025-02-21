@@ -34,8 +34,30 @@
 :root {
   --mantine-scale: 1.1; /* Increase overall UI scale */
   --loader-size-lg: 80px; /* Change the default large size */
+  --input-overflow: hidden;
+  --input-cursor: text;
+  --input-padding-y: 8px;
+  --input-padding-inline-start: 12px;
+  --input-padding-inline-end: 12px;
+  --input-radius: 4px;
+  --input-fz: var(--mantine-font-size-sm);
+  --mantine-font-size-sm: 14px;
+  --input-line-height: 1.5;
+  --input-height: 40px;
+  --input-size: medium;
+  --input-font-family: 'Arial; sans-serif';
+  --input-bg: white;
+  --input-bd: 1px solid #ccc;
+  --input-color: #333;
+  --input-text-align: left;
+  --input-resize: none;
+  --input-bd-focus: #00398F;
+  --input-primary: #00398F;
 }
 
+body {
+  background: #000000;
+}
 /* Reapply the pointer cursor for anchor tags */
 a,
 button {

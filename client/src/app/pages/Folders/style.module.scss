@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  padding: 16px;
+  border-radius: 8px;
+  height: calc(100vh - 32px);
+
+  /* Box-shadow with vendor prefixes */
+  -webkit-box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+  -moz-box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+  -o-box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+  box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+}

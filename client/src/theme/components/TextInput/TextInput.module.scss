@@ -41,7 +41,9 @@
   }
 
   &:focus {
-    border-color: var(--mantine-color-primary-3);
+    border: 1px solid var(--input-primary);
+    background: transparent;
+    color: white;
   }
 
   &:disabled {
@@ -49,7 +51,7 @@
   }
 
   &[data-error='true'] {
-    color: var(--mantine-color-gray-8);
+    color: white;
     border: 1px solid var(--mantine-color-red-3);
   }
 }
