@@ -1,4 +1,5 @@
 import { useFetch, useMute } from "../hooks";
+import { Title } from '@mantine/core';
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -43,6 +44,7 @@ export function NxWelcome() {
   console.log(data, isLoading);
   return (
     <>
+      <Title className="text-3xl font-bold underline">111</Title>
       {
         isLoading ? <span>Loading...</span> : data?.map((item: {
           id: string,
