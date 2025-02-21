@@ -1,5 +1,5 @@
-import { useFetch, useMute } from "../hooks";
-import { Title } from '@mantine/core';
+import { useFetch, useMute } from "../../hooks";
+import { Title, Text } from '@mantine/core';
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -7,7 +7,7 @@ import { Title } from '@mantine/core';
  Delete this file and get started with your project!
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
-export function NxWelcome() {
+const Documents = () => {
   const {
     data, refetch, isLoading
   } = useFetch<{
@@ -44,7 +44,7 @@ export function NxWelcome() {
   console.log(data, isLoading);
   return (
     <>
-      <Title className="text-3xl font-bold underline">111</Title>
+      <Title>Document Management Assignment</Title>
       {
         isLoading ? <span>Loading...</span> : data?.map((item: {
           id: string,
@@ -52,7 +52,7 @@ export function NxWelcome() {
         }) => {
           return (
             <div key={item?.id}>
-              <p>{item?.name}-{item?.id}</p>
+              <Text>{item?.name}-{item?.id}</Text>
               <div>
                 <button onClick={() => handleDelete(item?.id)}>Delete Folder</button>
               </div>
@@ -67,7 +67,7 @@ export function NxWelcome() {
   );
 }
 
-export default NxWelcome;
+export default Documents;
 
 
 
