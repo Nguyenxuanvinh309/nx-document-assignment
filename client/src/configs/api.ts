@@ -1,4 +1,5 @@
 // src/api/axiosInstance.ts
+import { toast } from "react-toastify";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 const axiosInstance = axios.create({
@@ -13,6 +14,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     const message = error.response?.data?.message || "Something went wrong. Please try again.";
+    toast.error(message);
     return Promise.reject(new Error(message));
   }
 );
@@ -22,8 +24,10 @@ const handleRequest = async <TResponse>(
 ): Promise<TResponse> => {
   try {
     const { data } = await request;
+    console.log(data);
     return data;
   } catch (error) {
+    toast.error((error as Error).message || "API request failed");
     throw new Error((error as Error).message || "API request failed");
   }
 };

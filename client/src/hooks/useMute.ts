@@ -23,7 +23,6 @@ const useMute = <TRequest, TResponse>(
       useApi<TRequest, TResponse>(url, method, payload),
     ...options,
   });
-
   return {
     request: (
       { url, method = "POST" }: { url: string; method?: HttpMethod },
@@ -50,7 +49,7 @@ const useMute = <TRequest, TResponse>(
         throw error;
       }
     },
-
+  
     isLoading: mutation.isPending,
     isError: mutation.isError,
     error: mutation.error,

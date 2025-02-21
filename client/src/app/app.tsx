@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { router } from '../routers';
 import { Container } from '@mantine/core';
 import styles from './app.module.scss';
+import { ToastContainer } from 'react-toastify';
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ export function App() {
     <QueryClientProvider client={queryClient}>
       <Container fluid className={styles.wrapper}>
         <RouterProvider router={router} />
+        <ToastContainer />
       </Container>
       {/* The rest of your application */}
       <ReactQueryDevtools initialIsOpen={false} />

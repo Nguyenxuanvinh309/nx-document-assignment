@@ -7,6 +7,7 @@ import styles from './style.module.scss';
 import schema, { FolderType } from "./schema";
 import { useForm } from "react-hook-form";
 import TextInput from "../../components/Form/TextInput";
+import { toast } from "react-toastify";
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -37,6 +38,7 @@ const Folders = () => {
       onSuccess: () => {
         refetch();
         reset();
+        toast.success('Add Success');
       },
     });
   };
@@ -46,7 +48,7 @@ const Folders = () => {
       method: 'DELETE',
     }, null, {
       onSuccess: () => {
-        console.log(1);
+        toast.success('Delete Success');
         refetch();
       },
     });
