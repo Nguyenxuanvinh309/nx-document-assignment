@@ -1,0 +1,66 @@
+.wrapper {
+  width: calc(100% - 300px);
+  height: calc(100vh - 32px);
+  padding: 16px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  /* Box-shadow with vendor prefixes */
+  -webkit-box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+  -moz-box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+  -o-box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+  box-shadow: rgb(1, 57, 143) 0px 0px 11px 0px;
+  overflow: auto;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  gap: 16px; /* Standard */
+  /* Vendor prefixes (for very old browsers, mostly not needed today) */
+  -webkit-gap: 16px;
+  -moz-gap: 16px;
+  -ms-gap: 16px;
+  flex-wrap: wrap;
+}
+
+.elementText {
+  color: white;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show only 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.elementDate {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.elementTitle {
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  width: calc(100% - 100px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.elementContainer {
+  display: flex;
+  width: calc(50% - 8px);
+  padding: 16px;
+  border: 1px solid #00398f;
+  flex-direction: column;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+.elementWrapper {
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: space-between;
+}

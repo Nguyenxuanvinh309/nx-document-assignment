@@ -5,6 +5,12 @@ const getFolderList = ({
   url: '/folders'
 });
 
+const getFolderDetail = (id: string) => ({ 
+  queryKey: ['folder-detail', id],
+  url: `/folders/${id}`,
+  enabled: !!id
+});
+
 const addNewFolder = ({
   url: "/folders",
   method: 'POST' as HttpMethod,
@@ -20,5 +26,6 @@ const deleteNewFolder = (id: string) => {
 export {
   getFolderList,
   addNewFolder,
-  deleteNewFolder
+  deleteNewFolder,
+  getFolderDetail
 }
