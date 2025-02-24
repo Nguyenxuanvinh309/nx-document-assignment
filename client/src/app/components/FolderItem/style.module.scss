@@ -3,6 +3,10 @@
   border-radius: 8px;
   border: 1px solid #00398f;
   cursor: pointer;
+  
+  &.active {
+    background: #00398f;
+  }
 }
 .elementText {
   color: white;

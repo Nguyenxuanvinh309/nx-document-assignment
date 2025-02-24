@@ -1,4 +1,5 @@
 import { Box, Flex } from "@mantine/core";
+import { useNavigate, useParams } from '@tanstack/react-router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useFetch, useMute } from "../../../hooks";
 import { Button, FolderItem, Loading } from "../../components";
@@ -9,6 +10,7 @@ import { useForm } from "react-hook-form";
 import TextInput from "../../components/Form/TextInput";
 import { toast } from "react-toastify";
 import { addNewFolder, getFolderList, deleteNewFolder } from "../../models/folders";
+import { useEffect, useState } from "react";
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -20,6 +22,11 @@ const Folders = () => {
   const {
     data, refetch, isLoading
   } = useFetch<IFolder[]>(getFolderList);
+  const navigate = useNavigate({ from: '/folders/$id' });
+  const { id: postId } = useParams({ from: '/folders/$id' });
+
+  console.log(postId);
+  const [selectedDocument, setSelectedDocument] = useState(0);
   const { control, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(schema),
     mode: 'onBlur',
@@ -28,6 +35,11 @@ const Folders = () => {
   const { isValid } = formState;
   const { request: addRequest, isLoading: isAdding } = useMute<FolderType, null>();
   const { request: deleteRequest, isLoading: isDeleting } = useMute();
+  
+  useEffect(() => {
+    const currentId = data?.map((item, index) => item?.id === postId ? index : null).filter(Boolean);
+    setSelectedDocument(currentId?.[0] || 0);
+  }, [postId, data, setSelectedDocument]);
 
   const handleAdd = (data: FolderType) => {
     addRequest(addNewFolder,  data, {
@@ -38,6 +50,7 @@ const Folders = () => {
       },
     });
   };
+  
   const handleDelete = (id: string) => {
     deleteRequest(deleteNewFolder(id), null, {
       onSuccess: () => {
@@ -47,7 +60,11 @@ const Folders = () => {
     });
   };
 
-  console.log(isValid);
+  const handleSelectedDocument = (index: number, id: string) => {
+    setSelectedDocument(index);
+    navigate({ to: '/folders/$id', params: { id } });
+  };
+
   return (
     <Flex
       style={{
@@ -89,9 +106,17 @@ const Folders = () => {
               >
                 <Loading />
               </Flex>
-            ) : data?.map((item: IFolder) => {
+            ) : data?.map((item: IFolder, index: number) => {
               return (
-                <FolderItem key={item?.id} {...item} onDeleteItem={handleDelete} disabled={isLoading || isDeleting} />
+                <FolderItem 
+                  key={item?.id}
+                  index={index}
+                  {...item}
+                  selectedDocument={selectedDocument}
+                  onDeleteItem={handleDelete}
+                  onClick={handleSelectedDocument}
+                  disabled={isLoading || isDeleting}
+                />
               )
             })
           }

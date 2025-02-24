@@ -24,7 +24,6 @@ const handleRequest = async <TResponse>(
 ): Promise<TResponse> => {
   try {
     const { data } = await request;
-    console.log(data);
     return data;
   } catch (error) {
     toast.error((error as Error).message || "API request failed");
